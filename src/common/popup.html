@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <title></title>
+  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />    
+  <link rel="stylesheet" href="css/popup.css" type="text/css" />    
+  <script type="text/javascript" src="kango-ui/kango_api.js"></script>
+  <script type="text/javascript" src="vendor/jquery-1.9.1.min.js"></script>
+  <script type="text/javascript" src="vendor/underscore-min.js"></script>
+  <script type="text/javascript" src="popup.js"></script>
+</head>
+<body>
+  <div id="main-content">
+    Loading...
+  </div>
+
+  <script id="list-template" type="text/template">
+    <% if (items && _.isArray(items) && items.length) { %>
+
+    <div class="list-group">
+
+      <% _.each(items, function(value, key, list) { %>
+        <a href="#" class="list-group-item" data-template-id="<%= key %>">
+          <h4 class="list-group-item-heading"><%= value.name %></h4>
+          <p class="list-group-item-text"><%= value.message.length > 165 ? (value.message.substr(0, 165) + '...') : value.message %></p>
+        </a>
+      <% }); %>
+
+    </div>
+
+    <% } else { %>
+      <div class="panel panel-default text-center">
+        <div class="panel-body">
+          Нет шаблонов &#8226; <a href="<%= optionUrl %>" target="_blank" class="btn btn-primary btn-xs">Создать</a> 
+        </div>
+      </div>
+    <% } %>
+  </script>
+</body>
+</html>

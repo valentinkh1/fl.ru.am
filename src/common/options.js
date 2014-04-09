@@ -1,0 +1,98 @@
+var fl_options = {
+  init: function() {
+    this.cacheEl();
+    this.render();
+    this.bindHandler();
+  },
+
+  cacheEl: function() {
+    this.$itemContainer = jQuery('#items-container');
+    this.itemTemplate = _.template(jQuery('#item-template').html());
+    this.$createTemplateModal = jQuery('#create-template');
+    this.$editForm = jQuery('#edit-template-form');
+    this.items = kango.storage.getItem('templates') || [];
+  },
+
+  render: function() {
+    this.$itemContainer.html(this.itemTemplate({
+      items: this.items
+    }));
+  },
+
+  bindHandler: function() {
+    this.$createTemplateModal.on('click', '[data-save=template]', this.saveChangeOfTemplate.bind(this));
+    this.$createTemplateModal.on('hidden.bs.modal', this.onHideCreateModal.bind(this));
+    this.$itemContainer.on('click', '[data-edit]', this.editTemplate.bind(this));
+    this.$itemContainer.on('click', '[data-remove]', this.removeTemplate.bind(this));
+  },
+
+  saveChangeOfTemplate: function(event) {
+    var params = {};
+    var templateId = this.$editForm.data('template-id');
+    var template = this.items[templateId] || false;
+
+    event.preventDefault();
+
+    this.$editForm.serializeArray().map(function (item, key) {
+      params[item.name] = item.value;
+    });
+
+    if ( this.items[templateId] ) {
+      this.items[templateId] = params;
+    }
+    else {
+      this.items.unshift(params);
+    }
+
+    this.$createTemplateModal.modal('hide');
+    kango.storage.setItem('templates', this.items);
+    this.render();
+  },
+
+  editTemplate: function(event) {
+    var templateId = $(event.currentTarget).data('edit');
+    var template = this.items[templateId] || false;
+    var that = this;
+    var checkedAction;
+
+    event.preventDefault();
+
+    this.$editForm.data('template-id', templateId);
+
+    if (!template) return;
+
+    that.$editForm.find('[name=name]').val(template.name);
+    that.$editForm.find('[name=message]').val(template.message);
+    that.$editForm.find('[name=customer_only]').get(0).checked = !!template.customer_only; // [ checkedAction ] ('checked', 'checked');
+    that.$editForm.find('[name=prefer_sbr]').get(0).checked = !!template.prefer_sbr; // [ checkedAction ] ('checked', 'checked');
+
+    this.$createTemplateModal.modal('show');
+  },
+
+
+  removeTemplate: function(event) {
+    var templateId = jQuery(event.currentTarget).data('remove');
+
+    event.stopPropagation();
+
+    this.items = this.items.filter(function (val, key) { return key !== templateId; });
+
+    this.render();
+
+    kango.storage.setItem('templates', this.items);
+  },
+
+
+  onHideCreateModal: function() {
+    if (this.$editForm[0]) {
+      this.$editForm[0].reset();
+    }
+    this.$editForm.find(':checked').removeAttr('checked');
+    this.$editForm.data('template-id', false);
+  }
+
+};
+
+KangoAPI.onReady(function() {
+  fl_options.init();
+});

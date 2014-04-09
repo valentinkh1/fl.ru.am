@@ -1,0 +1,19 @@
+{
+    "name": "FLAutoReplay",
+    "version": "0.0.3",
+    "creator": "https://github.com/fedyk", 
+    "description": "Auto replay for free-lance.ru",
+    "content_scripts": ["content.js"], 
+    "browser_button": {
+        "tooltipText": "FL.ru",
+        "caption": "FL.ru",
+        "icon": "icons/icon16.png",
+        "popup": {
+            "url": "popup.html",
+            "width": 600,
+            "height": 520
+        }
+    },
+    "options_page": "options.html",
+    "homepage_url": "https://github.com/fedyk/"
+}

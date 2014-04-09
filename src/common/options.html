@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <title>FLAutoReplay &#8226; Настройки</title>
+  <link rel="shortcut icon" href="icons/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />    
+  <link rel="stylesheet" href="css/options.css" type="text/css" />
+
+  <script type="text/javascript" src="kango-ui/kango_api.js"></script>
+  <script type="text/javascript" src="vendor/jquery-1.9.1.min.js"></script>
+  <script type="text/javascript" src="vendor/underscore-min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="options.js"></script>
+</head>
+<body>
+
+  <nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="content">
+      <a class="navbar-brand" href="/options.html">Настройки</a>
+      <button type="button" class="btn btn-success navbar-btn pull-right" data-toggle="modal" data-target="#create-template">Создать</button>
+    </div>
+  </nav>
+
+  <div class="content">
+  <!-- <div>
+    <h3 class="pull-left">Настройки</h3>
+    <button id="create-template" class="pull-right btn btn-success">Create</button>
+  </div> -->
+
+    <div id="items-container">
+    </div>
+
+  </div>
+
+
+  <script id="item-template" type="text/template">
+  <% if (items && _.isArray(items) && items.length) { %>
+  <div class="list-group">
+
+    <% _.each(items, function(value, key, list) { %>
+      <a href="#" class="list-group-item" data-edit="<%- key %>">
+        <button type="button" class="close" aria-hidden="true" data-remove="<%- key %>">×</button>
+        <h4 class="list-group-item-heading"><%= value.name %></h4>
+        <p class="list-group-item-text"><%= value.message.length > 300 ? (value.message.substr(0, 300) + '...') : value.message %></p>
+      <a>
+    <% }); %>
+
+  </div>
+  <% } else { %>
+    <div>
+      Шаблонов нет, <a href="#create" data-toggle="modal" data-target="#create-template">cоздать</a>?
+    </div>
+  <% } %>
+  </script>
+
+  <!-- CreateTempalte Modal -->
+  <div class="modal fade" id="create-template" tabindex="-1" role="dialog" aria-labelledby="create-template-label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="create-template-label">Создать Шаблон</h4>
+        </div>
+        <div class="modal-body">
+
+          <form id="edit-template-form" class="form-horizontal" role="form">
+            <div class="form-group">
+              <label for="inputName1" class="control-label col-sm-2">Название</label>
+              <div class="col-sm-10">
+                <input type="email" class="form-control" name="name" id="inputName1" placeholder="Название">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inputMessage1" class="control-label col-sm-2">Сообщение</label>
+              <div class="col-sm-10">
+                <textarea class="form-control" id="inputMessage1" name="message" placeholder="Сообщение" rows="5"></textarea>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <div class="well well-sm">
+                  <p>
+                    <span class="col-sm-3"><span class="label label-default"><%=name%></span></span> <small>Название заказчика</small>
+                  </p>
+                  <div>
+                    <span class="col-sm-3"><span class="label label-default"><%=hello%></span></span> <small>Добрый день / Добрый вечер</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="customer_only" value="1"> Скрыть ответ, сделав его видимым только заказчику (автору проекта)
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-offset-2 col-sm-10">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="prefer_sbr" value="1"> Предпочитаю сотрудничество через сервис Безопасная Сделка <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAcCAYAAAB75n/uAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAnRJREFUeNq0Vs9rE0EUfrPZEkxS4q949OTJk9CTJ6EgCII374JHEQpCUPxxEPwDREHwbxDEW6AgRIo9CT0VhECgIMSWNqnZ3bjJzI7fm50NCUmatBkffOxkM/N9877ZffuE1pr+Z4jgO+3jegDUgK+M4k3dyyaE2+I0fDngNrAO3AUqortFulAkUhJQRFKSyoSAOvAL2JtBeA64DtwA7jFxzqdSDjK+TxSFyKD7jTrFVSqLkY1mYnxN4KBO0tvAjp1SAa7ywANZzgNWAIwzHnY+7FLgEy9mjAiYBQCtjKefKFozvmKu8Kbkoy2ycULK12pSYFZ4o3OSOZM5cwUBJH4MC8pTd7REGFsVLIJKYNx1HcpkEKQZSPf8hhPcnEErkfZQHQZzMrdPklp6gDu+4wyYE9ycQVPxj7zjIxiYDJo+vGqo2L6TLgVicw4/2aLdZJHn+gwCzM0WNSQeJ6iVhHDkvzYCxxg2vIsPICGpLns2CwcwXJK2APLsM1sfRLacOUA/NJybeiig6FMcuMuAucD5meucEbj8SDfVX9p2kQVzJLGxZ29okbXpba+z/O6ZA1zv2R49KkBs0x/a7QfLWQOOHebKMhoKVKpawbMnUfvs9vTaxvsqfwd0Wk1prMRdeaZr/S59DPZPv3teg7Uf4Psme59hosRB9XF4RNfwRVovXVrsxQoO8f1tmyZhY6JtmdYX/X4pyrh8KVygW6uVE0qySslxsNzy3GethQQ4Ws8Fl793+RI9LEAuXxz/nw80QjGIQ3qDny9mNl7zOrvWU8H9zisIrBXOp/eijiH+YYlrJ3Z2cwWqwwp4h4Xs+PU84iz+CTAAfUe1Vh3mZPcAAAAASUVORK5CYII=" width="12" height="14">
+                  </label>
+                </div>
+              </div>
+            </div>
+
+          </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-save="template">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Modal -->
+
+</body>
+</html>

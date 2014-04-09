@@ -1,0 +1,19 @@
+{
+   "background": {
+      "scripts": [ "js/animation.js", "js/checker.js", "js/drawing.js", "main.js" ]
+   },
+   "browser_action": {
+      "default_popup": "popup.html",
+      "name": "Click to change the icon's color"
+   },
+   "description": "Dispay of number free-lance messages.",
+   "icons": {
+      "16": "images/images-smale.png"
+   },
+   "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCzo4lwgiBvKNAxtmluUWfhyQKH3YizjHlvGCmM9+X9V6eThAAoUl5bisjK7H4ZHWISJRWkgRnm3fsfZKhBZao6r8QKgZOpch6Ghb500Ri0+DZylG1y5Wpp412rI0qUtkSDBx/9f4U+Pi5W1GVsz4q5O9CPohibkOHzITKRUbBkKQIDAQAB",
+   "manifest_version": 2,
+   "name": "Free-lance Mail Checker",
+   "options_page": "options.html",
+   "permissions": [ "http://*.free-lance.ru/*", "notifications", "tabs", "http://*/*", "https://*/*" ],
+   "version": "1.0"
+}
