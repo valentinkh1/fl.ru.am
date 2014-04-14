@@ -1,9 +1,9 @@
 {
-    "name": "FLAutoReplay",
+    "name": "Fl.ru Answering Machine",
+    "description": "Automatic response to project in FL.ru (well, semi-automatic)",
     "version": "0.0.4",
     "creator": "https://github.com/fedyk",
     "default_locale": "ru",
-    "description": "Auto replay for free-lance.ru",
     "content_scripts": ["content.js"], 
     "background_scripts": ["main.js"],
     "browser_button": {

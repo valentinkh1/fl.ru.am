@@ -1,4 +1,6 @@
 {
+    "__info_name__": "Fl.ru Answering Machine",
+    "__info_description__": "Automatic response to project in FL.ru (well, semi-automatic)",
     "Options Title": "Options | FLAutoReplay",
     "Options": "Options",
     "Create": "Create",

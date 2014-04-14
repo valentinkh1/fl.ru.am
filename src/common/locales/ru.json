@@ -1,4 +1,6 @@
 {
+    "__info_name__": "Fl.ru Aвтоответчик",
+    "__info_description__": "Автоматический ответа на проект на FL.ru(ну ладно, полуавтоматический)",
     "Options Title": "Настройки | FLAutoReplay",
     "Options": "Настройки",
     "Create": "Создать",
