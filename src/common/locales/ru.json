@@ -1,0 +1,15 @@
+{
+    "Options Title": "Настройки | FLAutoReplay",
+    "Options": "Настройки",
+    "Create": "Создать",
+    "Create Template": "Создать Шаблон",
+    "Name": "Название",
+    "Message": "Сообщение",
+    "Customer name": "Название заказчика",
+    "Hello Message": "Добрый день / Добрый вечер",
+    "Skip Replay": "Скрыть ответ, сделав его видимым только заказчику (автору проекта)",
+    "Pref SBR": "Предпочитаю сотрудничество через сервис Безопасная Сделка",
+    "Close": "Закрить",
+    "Save": "Сохранить",
+    "Template-not-found": "Шаблонов нет, <a href='#create' data-toggle='modal' data-target='#create-template'>cоздать</a>?"
+}

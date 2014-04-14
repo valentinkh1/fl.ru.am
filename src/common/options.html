@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-  <title>FLAutoReplay &#8226; Настройки</title>
+  <title i18n-key="Options Title">Options | FLAutoReplay</title>
   <link rel="shortcut icon" href="icons/favicon.ico" type="image/x-icon" />
   <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />    
   <link rel="stylesheet" href="css/options.css" type="text/css" />
@@ -17,8 +17,8 @@
 
   <nav class="navbar navbar-default navbar-static-top" role="navigation">
     <div class="content">
-      <a class="navbar-brand" href="/options.html">Настройки</a>
-      <button type="button" class="btn btn-success navbar-btn pull-right" data-toggle="modal" data-target="#create-template">Создать</button>
+      <a class="navbar-brand" href="/options.html" i18n-key="Options">Options</a>
+      <button type="button" class="btn btn-success navbar-btn pull-right" data-toggle="modal" data-target="#create-template" i18n-key="Create">Create</button>
     </div>
   </nav>
 
@@ -49,7 +49,7 @@
   </div>
   <% } else { %>
     <div>
-      Шаблонов нет, <a href="#create" data-toggle="modal" data-target="#create-template">cоздать</a>?
+      <%= kango.i18n.getMessage('Template-not-found') %>
     </div>
   <% } %>
   </script>
@@ -60,21 +60,21 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title" id="create-template-label">Создать Шаблон</h4>
+          <h4 class="modal-title" id="create-template-label" i18n-key="Create Template">Create Template</h4>
         </div>
         <div class="modal-body">
 
           <form id="edit-template-form" class="form-horizontal" role="form">
             <div class="form-group">
-              <label for="inputName1" class="control-label col-sm-2">Название</label>
+              <label for="inputName1" class="control-label col-sm-2" i18n-key="Name">Name</label>
               <div class="col-sm-10">
-                <input type="email" class="form-control" name="name" id="inputName1" placeholder="Название">
+                <input type="email" class="form-control" name="name" id="inputName1">
               </div>
             </div>
             <div class="form-group">
-              <label for="inputMessage1" class="control-label col-sm-2">Сообщение</label>
+              <label for="inputMessage1" class="control-label col-sm-2" i18n-key="Message">Message</label>
               <div class="col-sm-10">
-                <textarea class="form-control" id="inputMessage1" name="message" placeholder="Сообщение" rows="5"></textarea>
+                <textarea class="form-control" id="inputMessage1" name="message" rows="5"></textarea>
               </div>
             </div>
 
@@ -82,10 +82,10 @@
               <div class="col-sm-offset-2 col-sm-10">
                 <div class="well well-sm">
                   <p>
-                    <span class="col-sm-3"><span class="label label-default"><%=name%></span></span> <small>Название заказчика</small>
+                    <span class="col-sm-3"><span class="label label-default"><%=name%></span></span> <small i18n-key="Customer name">Customer name</small>
                   </p>
                   <div>
-                    <span class="col-sm-3"><span class="label label-default"><%=hello%></span></span> <small>Добрый день / Добрый вечер</small>
+                    <span class="col-sm-3"><span class="label label-default"><%=hello%></span></span> <small i18n-key="Hello Message">Hello Message</small>
                   </div>
                 </div>
               </div>
@@ -95,7 +95,7 @@
               <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">
                   <label>
-                    <input type="checkbox" name="customer_only" value="1"> Скрыть ответ, сделав его видимым только заказчику (автору проекта)
+                    <input type="checkbox" name="customer_only" value="1"> <span i18n-key="Skip Replay">Skip Replay</span>
                   </label>
                 </div>
               </div>
@@ -105,7 +105,7 @@
               <div class="col-sm-offset-2 col-sm-10">
                 <div class="checkbox">
                   <label>
-                    <input type="checkbox" name="prefer_sbr" value="1"> Предпочитаю сотрудничество через сервис Безопасная Сделка <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAcCAYAAAB75n/uAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAnRJREFUeNq0Vs9rE0EUfrPZEkxS4q949OTJk9CTJ6EgCII374JHEQpCUPxxEPwDREHwbxDEW6AgRIo9CT0VhECgIMSWNqnZ3bjJzI7fm50NCUmatBkffOxkM/N9877ZffuE1pr+Z4jgO+3jegDUgK+M4k3dyyaE2+I0fDngNrAO3AUqortFulAkUhJQRFKSyoSAOvAL2JtBeA64DtwA7jFxzqdSDjK+TxSFyKD7jTrFVSqLkY1mYnxN4KBO0tvAjp1SAa7ywANZzgNWAIwzHnY+7FLgEy9mjAiYBQCtjKefKFozvmKu8Kbkoy2ycULK12pSYFZ4o3OSOZM5cwUBJH4MC8pTd7REGFsVLIJKYNx1HcpkEKQZSPf8hhPcnEErkfZQHQZzMrdPklp6gDu+4wyYE9ycQVPxj7zjIxiYDJo+vGqo2L6TLgVicw4/2aLdZJHn+gwCzM0WNSQeJ6iVhHDkvzYCxxg2vIsPICGpLns2CwcwXJK2APLsM1sfRLacOUA/NJybeiig6FMcuMuAucD5meucEbj8SDfVX9p2kQVzJLGxZ29okbXpba+z/O6ZA1zv2R49KkBs0x/a7QfLWQOOHebKMhoKVKpawbMnUfvs9vTaxvsqfwd0Wk1prMRdeaZr/S59DPZPv3teg7Uf4Psme59hosRB9XF4RNfwRVovXVrsxQoO8f1tmyZhY6JtmdYX/X4pyrh8KVygW6uVE0qySslxsNzy3GethQQ4Ws8Fl793+RI9LEAuXxz/nw80QjGIQ3qDny9mNl7zOrvWU8H9zisIrBXOp/eijiH+YYlrJ3Z2cwWqwwp4h4Xs+PU84iz+CTAAfUe1Vh3mZPcAAAAASUVORK5CYII=" width="12" height="14">
+                    <input type="checkbox" name="prefer_sbr" value="1" > <span i18n-key="Pref SBR">Pref SBR</span> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAcCAYAAAB75n/uAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAnRJREFUeNq0Vs9rE0EUfrPZEkxS4q949OTJk9CTJ6EgCII374JHEQpCUPxxEPwDREHwbxDEW6AgRIo9CT0VhECgIMSWNqnZ3bjJzI7fm50NCUmatBkffOxkM/N9877ZffuE1pr+Z4jgO+3jegDUgK+M4k3dyyaE2+I0fDngNrAO3AUqortFulAkUhJQRFKSyoSAOvAL2JtBeA64DtwA7jFxzqdSDjK+TxSFyKD7jTrFVSqLkY1mYnxN4KBO0tvAjp1SAa7ywANZzgNWAIwzHnY+7FLgEy9mjAiYBQCtjKefKFozvmKu8Kbkoy2ycULK12pSYFZ4o3OSOZM5cwUBJH4MC8pTd7REGFsVLIJKYNx1HcpkEKQZSPf8hhPcnEErkfZQHQZzMrdPklp6gDu+4wyYE9ycQVPxj7zjIxiYDJo+vGqo2L6TLgVicw4/2aLdZJHn+gwCzM0WNSQeJ6iVhHDkvzYCxxg2vIsPICGpLns2CwcwXJK2APLsM1sfRLacOUA/NJybeiig6FMcuMuAucD5meucEbj8SDfVX9p2kQVzJLGxZ29okbXpba+z/O6ZA1zv2R49KkBs0x/a7QfLWQOOHebKMhoKVKpawbMnUfvs9vTaxvsqfwd0Wk1prMRdeaZr/S59DPZPv3teg7Uf4Psme59hosRB9XF4RNfwRVovXVrsxQoO8f1tmyZhY6JtmdYX/X4pyrh8KVygW6uVE0qySslxsNzy3GethQQ4Ws8Fl793+RI9LEAuXxz/nw80QjGIQ3qDny9mNl7zOrvWU8H9zisIrBXOp/eijiH+YYlrJ3Z2cwWqwwp4h4Xs+PU84iz+CTAAfUe1Vh3mZPcAAAAASUVORK5CYII=" width="12" height="14">
                   </label>
                 </div>
               </div>
@@ -115,8 +115,8 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" data-save="template">Save changes</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" i18n-key="Close">Close</button>
+          <button type="button" class="btn btn-primary" data-save="template" i18n-key="Save">Save</button>
         </div>
       </div>
     </div>

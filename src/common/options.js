@@ -3,6 +3,7 @@ var fl_options = {
     this.cacheEl();
     this.render();
     this.bindHandler();
+    this.translate();
   },
 
   cacheEl: function() {
@@ -89,6 +90,17 @@ var fl_options = {
     }
     this.$editForm.find(':checked').removeAttr('checked');
     this.$editForm.data('template-id', false);
+  },
+
+
+  translate: function() {
+    jQuery('[i18n-key]').each(function() {
+      var $this = $(this);
+      var key = $this.attr('i18n-key');
+      var target = $this.attr('i18n-target') || 'text';
+      var text = kango.i18n.getMessage(key);
+      $this[target]( text );
+    });
   }
 
 };

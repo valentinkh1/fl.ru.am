@@ -1,0 +1,15 @@
+{
+    "Options Title": "Options | FLAutoReplay",
+    "Options": "Options",
+    "Create": "Create",
+    "Create Template": "Create Template",
+    "Name": "Name",
+    "Message": "Message",
+    "Customer name": "Customer name",
+    "Hello Message": "Good afternoon / Good evening",
+    "Skip Replay": "Hide answer by making it visible only to the client (the project author)",
+    "Pref SBR": "Prefer cooperation through service Secure Transaction",
+    "Close": "Close",
+    "Save": "Save",
+    "Template-not-found": "No templates, <a href='#create' data-toggle='modal' data-target='#create-template'>create</a>?"
+}
