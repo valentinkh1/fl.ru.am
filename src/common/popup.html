@@ -11,9 +11,7 @@
   <script type="text/javascript" src="popup.js"></script>
 </head>
 <body>
-  <div id="main-content">
-    Loading...
-  </div>
+  <div id="main-content">Loading...</div>
 
   <script id="list-template" type="text/template">
     <% if (items && _.isArray(items) && items.length) { %>
@@ -32,7 +30,7 @@
     <% } else { %>
       <div class="panel panel-default text-center">
         <div class="panel-body">
-          Нет шаблонов &#8226; <a href="<%= optionUrl %>" target="_blank" class="btn btn-primary btn-xs">Создать</a> 
+          <%= kango.i18n.getMessage('Popup No Template', {optionUrl: optionUrl}) %>
         </div>
       </div>
     <% } %>
