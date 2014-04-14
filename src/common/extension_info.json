@@ -4,6 +4,7 @@
     "creator": "https://github.com/fedyk", 
     "description": "Auto replay for free-lance.ru",
     "content_scripts": ["content.js"], 
+    "background_scripts": ["main.js"],
     "browser_button": {
         "tooltipText": "FL.ru",
         "caption": "FL.ru",
