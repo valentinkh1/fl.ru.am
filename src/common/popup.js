@@ -4,6 +4,7 @@ var fl_popup = {
     this.cacheElements();
     this.render();
     this.bindHandler();
+    this.initTooltip();
   },
 
   cacheElements: function() {
@@ -20,9 +21,16 @@ var fl_popup = {
     }) );
   },
 
+
   bindHandler: function () {
     this.$container.on('click', '[data-template-id]', this.selectTemplate.bind(this));
   },
+
+
+  initTooltip: function() {
+    jQuery('[data-toggle=tooltip]').tooltip();
+  },
+
 
   isValidTab: function(tab) {
     return tab.getUrl().indexOf('http://www.fl.ru/') === 0 || tab.getUrl().indexOf('https://www.fl.ru/') === 0;

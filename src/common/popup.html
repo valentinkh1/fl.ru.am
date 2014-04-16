@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="css/popup.css" type="text/css" />    
   <script type="text/javascript" src="kango-ui/kango_api.js"></script>
   <script type="text/javascript" src="vendor/jquery-1.9.1.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <script type="text/javascript" src="vendor/underscore-min.js"></script>
   <script type="text/javascript" src="popup.js"></script>
 </head>
@@ -34,6 +35,20 @@
         </div>
       </div>
     <% } %>
+
+
+    <% if (items && _.isArray(items) && items.length) { %>
+
+      <div class="popup-footer clearfix">
+
+        <a href='<%= optionUrl %>' target='_blank' class='pull-right' data-toggle='tooltip' data-placement='left' title='<%- kango.i18n.getMessage("Options") %>'>
+          <span class="glyphicon glyphicon-cog"></span>
+        </a>
+
+      </div>
+
+    <% } %>
+
   </script>
 </body>
 </html>

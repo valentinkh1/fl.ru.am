@@ -1,7 +1,7 @@
 body
 {
   width: 500px;
-  padding: 20px 20px 0 20px;
+  padding: 20px 20px 0 20px
 }
 
 .text-overflow
@@ -14,6 +14,25 @@ body
 .popup-list
 {
   max-height: 550px;
+  margin-bottom: 10px;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.popup-footer 
+{
+  margin-bottom: 5px;
+  color: #1f1f1f;
+}
+
+.popup-footer a
+{
+  color: #1f1f1f;
+  opacity: 0.6;
+  -webkit-transition: opacity 0.3s ease-in-out;
+}
+
+.popup-footer a:hover
+{
+  opacity: 1;
 }
