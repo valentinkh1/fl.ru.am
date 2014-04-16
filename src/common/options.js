@@ -27,7 +27,8 @@ var fl_options = {
 
 
   bindHandler: function() {
-    this.$createTemplateModal.on('click', '[data-save=template]', this.saveChangeOfTemplate.bind(this));
+    this.$createTemplateModal.on('click', '[data-save]', this.saveChangeOfTemplate.bind(this));
+    this.$createTemplateModal.on('submit', 'form', this.saveChangeOfTemplate.bind(this));
     this.$createTemplateModal.on('hidden.bs.modal', this.onHideCreateModal.bind(this));
     this.$itemContainer.on('click', '[data-edit]', this.editTemplate.bind(this));
     this.$itemContainer.on('click', '[data-remove]', this.suggestRemoveTemplate.bind(this));
