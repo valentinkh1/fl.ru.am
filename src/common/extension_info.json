@@ -1,7 +1,7 @@
 {
     "name": "Fl.ru Answering Machine",
     "description": "Automatic response to project in FL.ru (well, semi-automatic)",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "creator": "https://github.com/fedyk",
     "default_locale": "ru",
     "content_scripts": ["content.js"], 

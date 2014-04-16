@@ -41,8 +41,8 @@
     <% _.each(items, function(value, key, list) { %>
       <a href="#" class="list-group-item" data-edit="<%- key %>">
         <button type="button" class="close" aria-hidden="true" data-remove="<%- key %>">×</button>
-        <h4 class="list-group-item-heading"><%= value.name %></h4>
-        <p class="list-group-item-text"><%= value.message.length > 300 ? (value.message.substr(0, 300) + '...') : value.message %></p>
+        <h4 class="list-group-item-heading"><%- value.name %></h4>
+        <p class="list-group-item-text"><%- value.message.length > 300 ? (value.message.substr(0, 300) + '...') : value.message %></p>
       <a>
     <% }); %>
 

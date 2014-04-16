@@ -19,9 +19,9 @@
     <div class="list-group">
 
       <% _.each(items, function(value, key, list) { %>
-        <a href="#" class="list-group-item" data-template-id="<%= key %>">
-          <h4 class="list-group-item-heading"><%= value.name %></h4>
-          <p class="list-group-item-text"><%= value.message.length > 165 ? (value.message.substr(0, 165) + '...') : value.message %></p>
+        <a href="#" class="list-group-item" data-template-id="<%- key %>">
+          <h4 class="list-group-item-heading text-overflow" title="<%- value.name %>"><%- value.name %></h4>
+          <p class="list-group-item-text"><%- value.message.length > 165 ? (value.message.substr(0, 165) + '...') : value.message %></p>
         </a>
       <% }); %>
 

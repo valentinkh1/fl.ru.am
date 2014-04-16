@@ -3,3 +3,10 @@ body
 	width: 500px;
 	padding: 20px 20px 0 20px;
 }
+
+.text-overflow
+{
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
