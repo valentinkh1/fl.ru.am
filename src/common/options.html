@@ -5,27 +5,31 @@
   <title i18n-key="Options Title">Options | FLAutoReplay</title>
   <link rel="shortcut icon" href="icons/favicon.ico" type="image/x-icon" />
   <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />    
-  <link rel="stylesheet" href="css/options.css" type="text/css" />
+  <link rel="stylesheet" href="css/options.css?v=1" type="text/css" />
 
   <script type="text/javascript" src="kango-ui/kango_api.js"></script>
   <script type="text/javascript" src="vendor/jquery-1.9.1.min.js"></script>
   <script type="text/javascript" src="vendor/underscore-min.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="options.js"></script>
+  <script type="text/javascript" src="options.js?v=1"></script>
 </head>
 <body>
 
 
   <nav class="navbar navbar-default navbar-static-top" role="navigation">
-    <div class="content">
-      <a class="navbar-brand" href="/options.html" i18n-key="Options">Options</a>
-      <button type="button" class="btn btn-success navbar-btn pull-right" data-toggle="modal" data-target="#create-template" i18n-key="Create">Create</button>
+    <div class="scroll-fix">
+      <div class="content">
+        <a class="navbar-brand" href="/options.html" i18n-key="Options">Options</a>
+        <button type="button" class="btn btn-success navbar-btn pull-right" data-toggle="modal" data-target="#create-template" i18n-key="Create">Create</button>
+      </div>
     </div>
   </nav>
 
 
-  <div class="content">
-    <div id="items-container"></div>
+  <div class="scroll-fix">
+    <div class="content">
+      <div id="items-container"></div>
+    </div>
   </div>
 
 

@@ -10,6 +10,13 @@ body
 	margin: 0 auto;
 }
 
+@media all and (max-width: 750px) {
+  .content {
+    width: 100%;
+    padding: 0px 20px;
+  }
+}
+
 #confirmation-modal div.modal-footer
 {
   margin-top: 0px;
