@@ -13,6 +13,9 @@
     "Pref SBR": "Prefer cooperation through service Secure Transaction",
     "Close": "Close",
     "Save": "Save",
+    "Cancel": "Cancel",
+    "Ok": "Ok",
+    "Remove template?": "Remove template?",
     "Template-not-found": "No templates, <a href='#create' data-toggle='modal' data-target='#create-template'>create</a>?",
     "Popup No Template": "Template not found &#8226; <a href='{optionUrl}' target='_blank' class='btn btn-primary btn-xs'>Create</a>"
 }

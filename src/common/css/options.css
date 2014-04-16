@@ -9,3 +9,8 @@ body
 	width: 750px;
 	margin: 0 auto;
 }
+
+#confirmation-modal div.modal-footer
+{
+  margin-top: 0px;
+}

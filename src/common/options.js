@@ -8,23 +8,24 @@ var fl_options = {
 
   cacheEl: function() {
     this.$itemContainer = jQuery('#items-container');
-    this.itemTemplate = _.template(jQuery('#item-template').html());
     this.$createTemplateModal = jQuery('#create-template');
+    this.$confirmModal = jQuery('#confirmation-modal');
     this.$editForm = jQuery('#edit-template-form');
     this.items = kango.storage.getItem('templates') || [];
+    this.itemTemplate = _.template(jQuery('#item-template').html());
   },
 
   render: function() {
-    this.$itemContainer.html(this.itemTemplate({
-      items: this.items
-    }));
+    this.$itemContainer.html(this.itemTemplate({items: this.items}));
   },
 
   bindHandler: function() {
     this.$createTemplateModal.on('click', '[data-save=template]', this.saveChangeOfTemplate.bind(this));
     this.$createTemplateModal.on('hidden.bs.modal', this.onHideCreateModal.bind(this));
     this.$itemContainer.on('click', '[data-edit]', this.editTemplate.bind(this));
-    this.$itemContainer.on('click', '[data-remove]', this.removeTemplate.bind(this));
+    this.$itemContainer.on('click', '[data-remove]', this.suggestRemoveTemplate.bind(this));
+    this.$confirmModal.on('click', '[data-accept]', this.onAcceptModal.bind(this));
+    this.$confirmModal.on('click', '[data-cancel]', this.onCancelModal.bind(this));
   },
 
   saveChangeOfTemplate: function(event) {
@@ -70,17 +71,28 @@ var fl_options = {
     this.$createTemplateModal.modal('show');
   },
 
+  // Open confirm modal
+  suggestRemoveTemplate: function(event) {
+    this.$confirmModal.find('.modal-text-content').text(kango.i18n.getMessage('Remove template?'));
+    this.$confirmModal.modal('show');
+    this.$confirmModal.off('accept');
+    this.$confirmModal.on('accept', this.removeTemplate.bind(this, event));
+    event.stopPropagation();
+    event.preventDefault();
+  },
+
 
   removeTemplate: function(event) {
     var templateId = jQuery(event.currentTarget).data('remove');
 
-    event.stopPropagation();
-
+    // Remove from template items item with ID templateId
     this.items = this.items.filter(function (val, key) { return key !== templateId; });
 
-    this.render();
-
+    // Update storage
     kango.storage.setItem('templates', this.items);
+
+    // Update content
+    this.render();
   },
 
 
@@ -101,6 +113,18 @@ var fl_options = {
       var text = kango.i18n.getMessage(key);
       $this[target]( text );
     });
+  },
+
+
+  onAcceptModal: function(event) {
+    this.$confirmModal.trigger('accept');
+    this.$confirmModal.modal('hide');
+  },
+
+
+  onCancelModal: function(event) {
+    this.$confirmModal.trigger('cancel');
+    this.$confirmModal.modal('hide');
   }
 
 };
