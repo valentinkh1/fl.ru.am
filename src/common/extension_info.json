@@ -4,8 +4,8 @@
     "version": "0.0.5",
     "creator": "https://github.com/fedyk",
     "default_locale": "ru",
-    "content_scripts": ["content.js"], 
-    "background_scripts": ["main.js"],
+    "content_scripts": ["js/content.js"], 
+    "background_scripts": ["js/main.js"],
     "browser_button": {
         "tooltipText": "FL.ru",
         "caption": "FL.ru",
