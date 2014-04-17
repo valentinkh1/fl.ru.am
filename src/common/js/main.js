@@ -1,12 +1,22 @@
 ﻿var extension = {
 
+
   init: function() {
     this.xhr = null;
     this.delay = 300000;
     this.timeoutId = null;
     this.u_token_key = null;
+
+    this.bindHandler();
     this.updateUserToken();
   },
+
+
+  bindHandler: function() {
+    kango.browser.addEventListener(kango.browser.event.TAB_CHANGED, this.onTabChanged.bind(this));
+    kango.browser.addEventListener(kango.browser.event.DOCUMENT_COMPLETE, this.onTabChanged.bind(this));
+  },
+
 
   updateUserToken: function(callback){
     var responseHandler = function(data){
@@ -70,6 +80,16 @@
     }
 
     this.timeoutId = setTimeout(this.fetchNotification.bind(this), this.delay);
+  },
+
+
+  onTabChanged: function(event) {
+    // event = {string tabId, KangoBrowserTab target, string url, string title};
+    console.log('[onTabChanged]', event.url, event.url.indexOf('https://www.fl.ru'));
+
+    if (!event || event.url.indexOf('https://www.fl.ru') !== 0) return;
+
+    this.updateUserToken();
   },
 
   _parseUserToken: function(text){
