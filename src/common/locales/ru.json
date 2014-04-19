@@ -17,5 +17,6 @@
     "Ok": "Ok",
     "Remove template?": "Удалить шаблон?",
     "Template-not-found": "Шаблонов нет, <a href='#create' data-toggle='modal' data-target='#create-template'>cоздать</a>?",
-    "Popup No Template": "Нет шаблонов &#8226; <a href='{optionUrl}' target='_blank' class='btn btn-primary btn-xs'>Создать</a>"
+    "Popup No Template": "Нет шаблонов &#8226; <a href='{optionUrl}' target='_blank' class='btn btn-primary btn-xs'>Создать</a>",
+    "Templates" : "Шаблоны ответов"
 }

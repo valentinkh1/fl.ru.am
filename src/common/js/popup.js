@@ -17,7 +17,8 @@ var fl_popup = {
 
     this.$container.html ( this.template({
       items: this.items,
-      optionUrl: kango.io.getResourceUrl('options.html')
+      optionUrl: kango.io.getResourceUrl('options.html'),
+      contentName: 'Templates'
     }) );
   },
 

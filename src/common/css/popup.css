@@ -13,6 +13,7 @@ body
 
 .popup-list
 {
+  height: 300px;
   max-height: 550px;
   margin-bottom: 10px;
   overflow-y: auto;
@@ -35,4 +36,10 @@ body
 .popup-footer a:hover
 {
   opacity: 1;
+}
+
+.content-name 
+{
+  color: #5E5E5E;
+  font-size: 13px;
 }

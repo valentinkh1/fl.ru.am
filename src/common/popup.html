@@ -40,6 +40,9 @@
     <% if (items && _.isArray(items) && items.length) { %>
 
       <div class="popup-footer clearfix">
+        <span class="content-name">
+          <%- kango.i18n.getMessage(contentName) %>
+        </span>
 
         <a href='<%= optionUrl %>' target='_blank' class='pull-right' data-toggle='tooltip' data-placement='left' title='<%- kango.i18n.getMessage("Options") %>'>
           <span class="glyphicon glyphicon-cog"></span>
