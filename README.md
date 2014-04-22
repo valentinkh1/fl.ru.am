@@ -11,7 +11,7 @@ Automatic response to project in FL.ru (well, semi-automatic).
     cd fl.ru-answering-machine
     make
 
-Open this URL in Chrome: `chrome://extensions/`, then tick "Developer mode" and press "Load unpacked extension...". Select the folder fl.ru-answering-machine/output/chrome.
+Open this URL in Chrome: `chrome://extensions/`, then tick "Developer mode" and press "Load unpacked extension...". Select the folder `fl.ru-answering-machine/output/chrome`.
 
 ### Through Chrome Web Store
 
