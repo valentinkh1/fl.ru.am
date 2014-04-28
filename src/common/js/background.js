@@ -95,7 +95,66 @@
   _parseUserToken: function(text){
     var match = text && text.match(/_TOKEN_KEY[^']*'([^']+)';/);
     return match && match[1];
+  },
+
+
+  /**
+   * Use promise pattern
+   */
+  fetchHash: function(){
+    var deff = _.Deferred();
+    var promise = deff.promise();
+    var lastRequestId = this._fetchHashXHR.id || 0;
+    var xhr;
+
+    if (this._hashXHR) {
+      this._fetchHashXHR.xhr.abort();
+      this._fetchHashXHR.deff.reject();
+      console.log('[fetchHash] Request with id=%s aborded.', this._hashXHR.id);
+    }
+
+    xhr = kango.xhr.send({
+      url: 'https://www.fl.ru/', 
+      method: 'GET', 
+      contentType: 'text'
+    }, function(response){
+      if (data.status === 200 && data.response) {
+        deff.resolve(parseToken(data.response));
+      } else {
+        console.log('[fetchHash] Network error');
+        deff.reject();
+      }
+    });
+
+    this._hashXHR = {
+      xhr: xhr,
+      deff: deff,
+      id: lastRequestId++
+    };
+
+    function parseToken(text) {
+      var match = text && text.match(/_TOKEN_KEY[^']*'([^']+)';/);
+      return match && match[1];
+    }
+
+    return promise;
+  },
+
+
+  fetchNotifications: function(){
+    var deff = _.Deferred();
+    var promise = deff.promise();
+    var lastRequestId = this._fetchNotificationsXHR.id || 0;
+    var xhr;
+
+
+  },
+
+
+  fetchContacts: function(params){
+    params = _.extend(params, {from: false, page: 1});
   }
+
 };
 
 extension.init();

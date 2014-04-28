@@ -13,13 +13,14 @@ var fl_popup = {
     this.$container = jQuery('#main-content');
   },
 
-  render: function (argument) {
-
-    this.$container.html ( this.template({
+  render: function () {
+    var templateData = {
       items: this.items,
       optionUrl: kango.io.getResourceUrl('options.html'),
       contentName: 'Templates'
-    }) );
+    };
+
+    this.$container.html( this.template(templateData) );
   },
 
 
