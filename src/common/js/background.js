@@ -104,20 +104,13 @@
   fetchHash: function(){
     var deff = _.Deferred();
     var promise = deff.promise();
-    var lastRequestId = this._fetchHashXHR.id || 0;
     var xhr;
-
-    if (this._hashXHR) {
-      this._fetchHashXHR.xhr.abort();
-      this._fetchHashXHR.deff.reject();
-      console.log('[fetchHash] Request with id=%s aborded.', this._hashXHR.id);
-    }
 
     xhr = kango.xhr.send({
       url: 'https://www.fl.ru/', 
       method: 'GET', 
       contentType: 'text'
-    }, function(response){
+    }, function(data){
       if (data.status === 200 && data.response) {
         deff.resolve(parseToken(data.response));
       } else {
@@ -125,12 +118,6 @@
         deff.reject();
       }
     });
-
-    this._hashXHR = {
-      xhr: xhr,
-      deff: deff,
-      id: lastRequestId++
-    };
 
     function parseToken(text) {
       var match = text && text.match(/_TOKEN_KEY[^']*'([^']+)';/);
@@ -141,18 +128,63 @@
   },
 
 
-  fetchNotifications: function(){
+  fetchNotifications: function(token){
     var deff = _.Deferred();
     var promise = deff.promise();
-    var lastRequestId = this._fetchNotificationsXHR.id || 0;
     var xhr;
 
+    xhr = kango.xhr.send({
 
+      method: 'POST',
+      url: 'https://www.fl.ru/notification.php',
+      params: {op: 'msg', u_token_key: token },
+      contentType: 'json'
+
+    }, function(data) {
+
+      if (data.status === 200 && data.response) {
+        deff.resolve(data.response);
+        console.log('[fetchNotifications] Reseive data %s', data.response);
+      } else {
+        deff.reject();
+        console.log('[fetchNotifications] Network error');
+      }
+    });
+
+    return promise;
   },
 
 
   fetchContacts: function(params){
-    params = _.extend(params, {from: false, page: 1});
+    var deff = _.Deferred();
+    var promise = deff.promise();
+    var xhr;
+    
+    params = _.extend(params, {page: 1});
+
+    xhr = kango.xhr.send({
+
+      method: 'GET',
+      url: 'https://www.fl.ru/contacts/',
+      contentType: 'html'
+
+    }, function(html) {
+      if (data.status === 200 && data.response) {
+        deff.resolve(parseContactsList(data.response));
+        console.log('[fetchNotifications] Reseive data %s', data.response);
+      } else {
+        deff.reject();
+        console.log('[fetchNotifications] Network error');
+      }
+    }
+
+    function parseContactsList(html) {
+      return {
+        
+      }
+    }
+
+    return promise;
   }
 
 };
