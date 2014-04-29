@@ -7,8 +7,14 @@
     this.timeoutId = null;
     this.u_token_key = null;
 
-    this.bindHandler();
-    this.updateUserToken();
+    // this.bindHandler();
+    // this.updateUserToken();
+  },
+
+
+  config: {
+    tokenURL: 'https://www.fl.ru/',
+    notificationURL: 'https://www.fl.ru/notification.php'
   },
 
 
@@ -43,6 +49,7 @@
       contentType: 'text'
     }, responseHandler.bind(this));
   },
+
 
   fetchNotification: function() {
 
@@ -98,31 +105,52 @@
   },
 
 
-  /**
-   * Use promise pattern
-   */
-  fetchHash: function(){
+  fetchUserData: function() {
+    var that = this;
+    var token = this.fetchToken();
+
+    if (that.timeoutId) {
+      clearTimeout(that.timeoutId);
+    }
+
+    token.fail(resetTimer)
+      .done(function(token) {
+        that.fetchNotifications(token)
+          .fail(resetTimer)
+          .done(function(data){
+            if (data && data.success && data.msg) {
+              that.updateBadge(data.msg);
+            }
+          });
+      });
+
+    function resetTimer() {
+      this.timeoutId = setTimeout(that.fetchUserData.bind(that), that.delay);
+    }
+  },
+
+
+  fetchToken: function(){
     var deff = _.Deferred();
     var promise = deff.promise();
     var xhr;
 
-    xhr = kango.xhr.send({
-      url: 'https://www.fl.ru/', 
-      method: 'GET', 
-      contentType: 'text'
-    }, function(data){
+    xhr = kango.xhr.send({ url: this.config.tokenURL, method: 'GET', contentType: 'text'}, function(data){
+      var token;
+
       if (data.status === 200 && data.response) {
-        deff.resolve(parseToken(data.response));
-      } else {
-        console.log('[fetchHash] Network error');
-        deff.reject();
+        token = data.response.match(/_TOKEN_KEY[^']*'([^']+)';/);
       }
+
+      if (token && token[1]) {
+        deff.resolve(token[1]);
+        return;
+      }
+
+      deff.reject();
     });
 
-    function parseToken(text) {
-      var match = text && text.match(/_TOKEN_KEY[^']*'([^']+)';/);
-      return match && match[1];
-    }
+    promise.xhr = xhr;
 
     return promise;
   },
@@ -133,22 +161,17 @@
     var promise = deff.promise();
     var xhr;
 
-    xhr = kango.xhr.send({
+    xhr = kango.xhr.send({method: 'POST', url: this.config.notificationURL, params: {op: 'msg', u_token_key: token }, contentType: 'json'}, 
+    function(data) {
 
-      method: 'POST',
-      url: 'https://www.fl.ru/notification.php',
-      params: {op: 'msg', u_token_key: token },
-      contentType: 'json'
-
-    }, function(data) {
-
-      if (data.status === 200 && data.response) {
+      if (data.status === 200 && data.response && data.response.success) {
+        console.log('[fetchNotifications] Resolve: %s', data.response);
         deff.resolve(data.response);
-        console.log('[fetchNotifications] Reseive data %s', data.response);
-      } else {
-        deff.reject();
-        console.log('[fetchNotifications] Network error');
+        return;
       }
+
+      console.log('[fetchNotifications] Reject: %s', data);
+      deff.reject(data.response);
     });
 
     return promise;
@@ -176,13 +199,28 @@
         deff.reject();
         console.log('[fetchNotifications] Network error');
       }
-    }
+    });
 
     function parseContactsList(html) {
       return {
         
-      }
+      };
     }
+
+    return promise;
+  },
+
+
+  updateBadge: function(params) {
+    var deff = _.Deferred();
+    var promise = deff.promise();
+
+    setTimeout(function() {
+      kango.ui.browserButton.setBadgeValue(params.count);
+      kango.ui.browserButton.setTooltipText(params.tip);
+      kango.ui.browserButton.setBadgeBackgroundColor([114, 188, 78, 255]);
+      deff.resolve();
+    }, 2);
 
     return promise;
   }
