@@ -2,13 +2,15 @@
 
 
   init: function() {
-    this.xhr = null;
-    this.delay = 300000;
-    this.timeoutId = null;
-    this.u_token_key = null;
+    this.xhr = null;          // DOTO: Remove this in future
+    this.timeoutId = null;    // DOTO: Remove this in future
+    this.u_token_key = null;  // DOTO: Remove this in future
 
-    // this.bindHandler();
-    // this.updateUserToken();
+    this.delay = 30 * 1000;
+    this.userToken = null;
+    this.isUpdatingUserData = false;
+
+    this.updateUserData();
   },
 
 
@@ -23,7 +25,7 @@
     kango.browser.addEventListener(kango.browser.event.DOCUMENT_COMPLETE, this.onTabChanged.bind(this));
   },
 
-
+  // TODO: old method
   updateUserToken: function(callback){
     var responseHandler = function(data){
       if (data.status === 200 && data.response) {
@@ -50,7 +52,7 @@
     }, responseHandler.bind(this));
   },
 
-
+  // TODO: old method
   fetchNotification: function() {
 
     if (this.timeoutId) clearTimeout(this.timeoutId);
@@ -68,6 +70,7 @@
     }, this.fetchNotificationHandler.bind(this));
   },
 
+  // TODO: old method
   fetchNotificationHandler: function(data) {
     var info = data.response;
 
@@ -89,51 +92,60 @@
     this.timeoutId = setTimeout(this.fetchNotification.bind(this), this.delay);
   },
 
-
-  onTabChanged: function(event) {
-    // event = {string tabId, KangoBrowserTab target, string url, string title};
-    console.log('[onTabChanged]', event.url, event.url.indexOf('https://www.fl.ru'));
-
-    if (!event || event.url.indexOf('https://www.fl.ru') !== 0) return;
-
-    this.updateUserToken();
-  },
-
+  // TODO: old method
   _parseUserToken: function(text){
     var match = text && text.match(/_TOKEN_KEY[^']*'([^']+)';/);
     return match && match[1];
   },
 
 
-  fetchUserData: function() {
+  onTabChanged: function(event) {
+    if (!event || event.url.indexOf('https://www.fl.ru') !== 0) return;
+
+    this.updateUserData();
+  },
+
+
+  updateUserData: function() {
     var that = this;
-    var token = this.fetchToken();
 
-    if (that.timeoutId) {
-      clearTimeout(that.timeoutId);
-    }
+    // Seems to another request is executed
+    if (that.isUpdatingUserData) return;
 
-    token.fail(resetTimer)
+    // Block another request
+    that.isUpdatingUserData = true;
+    if (that.timeoutId) clearTimeout(that.timeoutId);
+
+    this.fetchToken()
       .done(function(token) {
-        that.fetchNotifications(token)
-          .fail(resetTimer)
-          .done(function(data){
-            if (data && data.success && data.msg) {
-              that.updateBadge(data.msg);
-            }
-          });
-      });
+
+        that.fetchNotifications(token).done(function(data) {
+          if (data && data.success && data.msg) {
+            that.updateBadge(data.msg);
+          }
+        })
+        .always(resetTimer);
+
+      })
+      .fail(resetTimer);
 
     function resetTimer() {
-      this.timeoutId = setTimeout(that.fetchUserData.bind(that), that.delay);
+      that.timeoutId = setTimeout(that.updateUserData.bind(that), that.delay);
+      that.isUpdatingUserData = false;
     }
   },
 
 
-  fetchToken: function(){
+  fetchToken: function() {
     var deff = _.Deferred();
     var promise = deff.promise();
+    var that = this;
     var xhr;
+
+    if (that.userToken) {
+      deff.resolve(that.userToken);
+      return promise;
+    }
 
     xhr = kango.xhr.send({ url: this.config.tokenURL, method: 'GET', contentType: 'text'}, function(data){
       var token;
@@ -144,13 +156,12 @@
 
       if (token && token[1]) {
         deff.resolve(token[1]);
+        that.userToken = token[1];
         return;
       }
 
       deff.reject();
     });
-
-    promise.xhr = xhr;
 
     return promise;
   },
