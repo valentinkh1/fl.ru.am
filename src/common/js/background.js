@@ -16,7 +16,8 @@
 
   config: {
     tokenURL: 'https://www.fl.ru/',
-    notificationURL: 'https://www.fl.ru/notification.php'
+    notificationURL: 'https://www.fl.ru/notification.php',
+    contactsURL: 'https://www.fl.ru/contacts/'
   },
 
 
@@ -193,29 +194,55 @@
     var deff = _.Deferred();
     var promise = deff.promise();
     var xhr;
-    
-    params = _.extend(params, {page: 1});
 
-    xhr = kango.xhr.send({
+    params = _.extend({page: 1}, params);
 
-      method: 'GET',
-      url: 'https://www.fl.ru/contacts/',
-      contentType: 'html'
+    xhr = kango.xhr.send({url: this.config.contactsURL, params: params, method: 'GET', contentType: 'text'}, function(data) {
 
-    }, function(html) {
-      if (data.status === 200 && data.response) {
-        deff.resolve(parseContactsList(data.response));
-        console.log('[fetchNotifications] Reseive data %s', data.response);
-      } else {
-        deff.reject();
+      if (data.status != 200 || !data.response) {
         console.log('[fetchNotifications] Network error');
+        deff.reject(data);
+        return;
       }
+
+      var contacts = parseContactsList(data.response);
+
+      deff.resolve(contacts);
     });
 
-    function parseContactsList(html) {
-      return {
-        
-      };
+    function parseContactsList(text) {
+      var contacts = [];
+      var wrapper, itemsEl;
+
+      wrapper = new DOMParser().parseFromString(text, 'text/html');
+
+      // Select all elements with users data
+      itemsEl = wrapper.querySelectorAll('tr.b-layout__tr.qpr');
+
+      for (var i = 0; i < itemsEl.length; i++) {
+        contacts.push(parseUserData(itemsEl[i]));
+      }
+
+      // Run GC
+      wrapper = null;
+
+      return contacts;
+    }
+
+    function parseUserData(element) {
+      var user = {};
+      var name = element.querySelector('.b-username a');
+      var nick = element.querySelector('.b-username a:last-child');
+      var new_message = element.querySelector('.newmess');
+      var logo = element.querySelector('.lpl-avatar');
+
+      user.name = name && name.textContent && name.textContent.trim() || 'Unknown';
+      user.nick = nick && nick.textContent && nick.textContent.trim() || 'Unknown';
+      user.profileURL = name && name.href;
+      user.new_message = new_message && new_message.length > 0;
+      user.logo = logo && logo.src;
+      
+      return user;
     }
 
     return promise;
