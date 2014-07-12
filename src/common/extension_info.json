@@ -8,9 +8,9 @@
         "js/content.js"
     ],
     "background_scripts": [
-        "js/vendor/underscore.js",
-        "js/vendor/underscore.deferred.js",
-        "js/vendor/html-domparser.js",
+        "vendor/underscore.js",
+        "vendor/underscore.deferred.js",
+        "vendor/html-domparser.js",
         "js/background.js"
     ],
     "browser_button": {

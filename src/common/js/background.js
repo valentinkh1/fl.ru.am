@@ -1,15 +1,12 @@
 ﻿var extension = {
 
-
   init: function() {
     this.xhr = null;          // DOTO: Remove this in future
     this.timeoutId = null;    // DOTO: Remove this in future
     this.u_token_key = null;  // DOTO: Remove this in future
-
-    this.delay = 30 * 1000;
+    this.delay = 30 * 1000;   // Default delay for checking new messages
     this.userToken = null;
-    this.isUpdatingUserData = false;
-
+    this.lockUpdateUserData = false;
     this.updateUserData();
   },
 
@@ -111,10 +108,10 @@
     var that = this;
 
     // Seems to another request is executed
-    if (that.isUpdatingUserData) return;
+    if (that.lockUpdateUserData) return;
 
     // Block another request
-    that.isUpdatingUserData = true;
+    that.lockUpdateUserData = true;
     if (that.timeoutId) clearTimeout(that.timeoutId);
 
     this.fetchToken()
@@ -132,7 +129,7 @@
 
     function resetTimer() {
       that.timeoutId = setTimeout(that.updateUserData.bind(that), that.delay);
-      that.isUpdatingUserData = false;
+      that.lockUpdateUserData = false;
     }
   },
 

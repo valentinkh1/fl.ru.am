@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name FLAutoReplay
+// @name fl.ru.am
 // @include https://www.fl.ru/*
 // @include http://www.fl.ru/*
-// @require vendor/jquery-1.9.1.min.js
-// @require vendor/underscore-min.js
+// @require vendor/jquery-2.1.1.js
+// @require vendor/underscore.js
 // ==/UserScript==
 
 var $ = window.$.noConflict(true); // Required for Opera and IE
@@ -15,7 +15,9 @@ kango.addMessageListener('fill_form', function(event) {
   if (!template) return;
 
   // Scroll to element
-  $('html, body').animate({ scrollTop: $("#ps_text").offset().top - 200 }, 100);
+  $('html, body').animate({ 
+    scrollTop: $("#ps_text").offset().top - 200
+  }, 100);
 
   fill_form(template);
 
