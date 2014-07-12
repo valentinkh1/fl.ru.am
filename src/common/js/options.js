@@ -74,8 +74,7 @@ var fl_options = {
 
     that.$editForm.find('[name=name]').val(template.name);
     that.$editForm.find('[name=message]').val(template.message);
-    that.$editForm.find('[name=customer_only]').get(0).checked = !!template.customer_only; // [ checkedAction ] ('checked', 'checked');
-    that.$editForm.find('[name=prefer_sbr]').get(0).checked = !!template.prefer_sbr; // [ checkedAction ] ('checked', 'checked');
+    that.$editForm.find('[name=customer_only]').get(0).checked = !!template.customer_only;
 
     this.$createTemplateModal.modal('show');
   },
