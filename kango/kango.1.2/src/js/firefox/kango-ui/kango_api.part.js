@@ -1,1 +1,0 @@
-window.addEventListener("DOMContentLoaded",function(){window.kango=KangoAPI.createKangoProxy(window.kango);KangoAPI.closeWindow=function(){window.__optionsPageMode?kango.ui.optionsPage.close():kango.ui.browserButton.closePopup()};KangoAPI.fireReady()},!1);

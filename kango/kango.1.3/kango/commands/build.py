@@ -23,13 +23,13 @@ class ProjectBuilder(object):
         self._builders = [
             kango.builders.chrome.ExtensionBuilder,
             kango.builders.firefox.ExtensionBuilder,
-            kango.builders.safari.ExtensionBuilder
+            # kango.builders.safari.ExtensionBuilder
         ]
-        try:
-            import kango.builders.internet_explorer
-            self._builders.append(kango.builders.internet_explorer.ExtensionBuilder)
-        except ImportError:
-            logger.info('Contact extensions@kangoextensions.com to enable IE support')
+        # try:
+        #     import kango.builders.internet_explorer
+        #     self._builders.append(kango.builders.internet_explorer.ExtensionBuilder)
+        # except ImportError:
+        #     logger.info('Contact extensions@kangoextensions.com to enable IE support')
 
     def _copy_extension_files(self, info, src, dst, extension_key, ignore):
         if not os.path.exists(dst):
