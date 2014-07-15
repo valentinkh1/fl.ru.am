@@ -5,11 +5,17 @@ Automatic response to project in FL.ru (well, semi-automatic).
 
 ## How install?
 
+Here are some screenshots of the interface:
+
+![Sample screenshot 1](/src/common/images/screenshot2.gif)
+
 ### From github:
 
-    git clone https://github.com/fedyk/fl.ru-answering-machine
-    cd fl.ru-answering-machine
-    make
+```bash
+$ git clone https://github.com/fedyk/fl.ru-am
+$ cd fl.ru-am
+$ make
+```
 
 Open this URL in Chrome: `chrome://extensions/`, then tick "Developer mode" and press "Load unpacked extension...". Select the folder `fl.ru-answering-machine/output/chrome`.
 
